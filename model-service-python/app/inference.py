@@ -1,4 +1,4 @@
-from schema import Patient, PredictResponse
+from .schema import Patient, PredictResponse
 import pandas as pd
 
 def predict_patient(patient: Patient, model, feature_order) -> PredictResponse:

@@ -1,9 +1,8 @@
-from typing import Tuple, Any, List
+from pathlib import Path
 import joblib
+from typing import Any, List, Tuple
 
-def load_bundle(model_path: str = "diabetes_rf_model.joblib") -> Tuple[Any, List[str]]:
-    """Load the trained model bundle and return (model, feature_order)."""
+def load_bundle() -> Tuple[Any, List[str]]:
+    model_path = Path(__file__).resolve().parents[1] / "artifacts" / "diabetes_rf_model.joblib"
     bundle = joblib.load(model_path)
-    model = bundle["model"]
-    feature_order = bundle["feature_order"]
-    return model, feature_order
+    return bundle["model"], bundle["feature_order"]
