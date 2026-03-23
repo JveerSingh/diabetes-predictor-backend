@@ -9,7 +9,7 @@ import { PredictResponse } from '../../models/prediction.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './predictor.component.html',
-  styleUrl: './predictor.component.css'
+  styleUrls: ['./predictor.component.css']
 })
 export class PredictorComponent {
   private fb = inject(FormBuilder);
