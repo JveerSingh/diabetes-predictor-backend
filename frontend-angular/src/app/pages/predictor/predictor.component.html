@@ -1,0 +1,80 @@
+<div class="page">
+  <div class="card">
+    <h1>Diabetes Risk Predictor</h1>
+    <p>Enter patient data and submit for prediction.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid">
+      <label>Age <input type="number" formControlName="age" /></label>
+
+      <label>
+        Gender
+        <select formControlName="gender">
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </label>
+
+      <label>Ethnicity <input type="text" formControlName="ethnicity" /></label>
+      <label>Education Level <input type="text" formControlName="education_level" /></label>
+      <label>Income Level <input type="text" formControlName="income_level" /></label>
+      <label>Employment Status <input type="text" formControlName="employment_status" /></label>
+      <label>Smoking Status <input type="text" formControlName="smoking_status" /></label>
+      <label>Alcohol / Week <input type="number" formControlName="alcohol_consumption_per_week" /></label>
+      <label>Activity Minutes / Week <input type="number" formControlName="physical_activity_minutes_per_week" /></label>
+      <label>Diet Score <input type="number" formControlName="diet_score" /></label>
+      <label>Sleep Hours / Day <input type="number" step="0.1" formControlName="sleep_hours_per_day" /></label>
+      <label>Screen Time Hours / Day <input type="number" step="0.1" formControlName="screen_time_hours_per_day" /></label>
+
+      <label>
+        Family History Diabetes
+        <select formControlName="family_history_diabetes">
+          <option [value]="0">No</option>
+          <option [value]="1">Yes</option>
+        </select>
+      </label>
+
+      <label>
+        Hypertension History
+        <select formControlName="hypertension_history">
+          <option [value]="0">No</option>
+          <option [value]="1">Yes</option>
+        </select>
+      </label>
+
+      <label>
+        Cardiovascular History
+        <select formControlName="cardiovascular_history">
+          <option [value]="0">No</option>
+          <option [value]="1">Yes</option>
+        </select>
+      </label>
+
+      <label>BMI <input type="number" step="0.1" formControlName="bmi" /></label>
+      <label>Waist to Hip Ratio <input type="number" step="0.01" formControlName="waist_to_hip_ratio" /></label>
+      <label>Systolic BP <input type="number" formControlName="systolic_bp" /></label>
+      <label>Diastolic BP <input type="number" formControlName="diastolic_bp" /></label>
+      <label>Heart Rate <input type="number" formControlName="heart_rate" /></label>
+      <label>Total Cholesterol <input type="number" formControlName="cholesterol_total" /></label>
+      <label>HDL <input type="number" formControlName="hdl_cholesterol" /></label>
+      <label>LDL <input type="number" formControlName="ldl_cholesterol" /></label>
+      <label>Triglycerides <input type="number" formControlName="triglycerides" /></label>
+      <label>Fasting Glucose <input type="number" formControlName="glucose_fasting" /></label>
+      <label>Postprandial Glucose <input type="number" formControlName="glucose_postprandial" /></label>
+      <label>Insulin Level <input type="number" step="0.1" formControlName="insulin_level" /></label>
+      <label>HbA1c <input type="number" step="0.1" formControlName="hba1c" /></label>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Predicting...' : 'Get Prediction' }}
+      </button>
+    </form>
+
+    <p *ngIf="error" class="error">{{ error }}</p>
+
+    <div *ngIf="result" class="result">
+      <h2>Prediction Result</h2>
+      <p><strong>Label:</strong> {{ result.label }}</p>
+      <p><strong>Prediction:</strong> {{ result.prediction }}</p>
+      <p><strong>Probability:</strong> {{ (result.probability * 100).toFixed(2) }}%</p>
+    </div>
+  </div>
+</div>
