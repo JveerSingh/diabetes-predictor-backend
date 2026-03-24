@@ -1,0 +1,32 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <a class="navbar-brand" (click)="scrollToSection('hero')">
+      <span class="brand-icon">⚕️</span>
+      <span class="brand-text">DiabetesAI</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <ul class="navbar-menu">
+      <li><button class="nav-link" (click)="scrollToSection('features')">Features</button></li>
+      <li><button class="nav-link" (click)="scrollToSection('architecture')">Architecture</button></li>
+      <li><button class="nav-link" (click)="scrollToSection('demo')">Demo</button></li>
+    </ul>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [attr.aria-label]="'Toggle menu'">
+      <div class="hamburger" [class.open]="isMobileMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <ul class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <li><button class="nav-link" (click)="scrollToSection('features'); toggleMobileMenu()">Features</button></li>
+    <li><button class="nav-link" (click)="scrollToSection('architecture'); toggleMobileMenu()">Architecture</button></li>
+    <li><button class="nav-link" (click)="scrollToSection('demo'); toggleMobileMenu()">Demo</button></li>
+  </ul>
+</nav>

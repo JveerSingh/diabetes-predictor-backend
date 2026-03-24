@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global base style - Lovable-inspired design system */
+:root {
+  /* Brand Colors - HSL */
+  --cyan: hsl(191, 100%, 50%);
+  --cyan-glow: hsla(191, 100%, 50%, 0.5);
+  --violet: hsl(263, 84%, 58%);
+  --violet-glow: hsla(263, 84%, 58%, 0.5);
+  --orange: hsl(16, 100%, 60%);
+  
+  /* Dark Backgrounds */
+  --dark-bg: hsl(233, 33%, 6%);
+  --dark-surface: hsl(233, 25%, 10%);
+  --dark-surface-2: hsl(233, 30%, 12%);
+  
+  /* Light Backgrounds */
+  --light-bg: hsl(40, 25%, 96%);
+  --light-surface: hsl(40, 20%, 98%);
+  
+  /* Text Colors */
+  --text-light: hsl(0, 0%, 100%);
+  --text-dark: hsl(230, 33%, 6%);
+  --text-muted: hsla(255, 255, 255, 0.6);
+  --text-muted-dark: hsl(230, 10%, 40%);
+  
+  /* Borders & Inputs */
+  --border: hsla(255, 255, 255, 0.1);
+  --border-light: hsla(255, 255, 255, 0.15);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  
+  /* Radius */
+  --radius: 0.75rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  
+  /* Shadows */
+  --shadow-soft: 0 15px 40px rgba(0, 0, 0, 0.18);
+  --shadow-strong: 0 25px 70px rgba(0, 0, 0, 0.25);
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, var(--dark-bg) 0%, var(--dark-surface) 100%);
+  color: var(--text-light);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--violet);
+}
+
+button, input, select, textarea {
+  font-family: var(--font-sans);
+}
+
+/* Glass-morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+}
+
+/* Container utility */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
