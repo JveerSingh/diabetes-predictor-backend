@@ -1,104 +1,103 @@
-# Diabetes Predictor – Full Stack Microservice
+# Diabetes Risk Predictor
 
-This project is a full-stack machine learning application built using a small microservice architecture. The goal was to take a trained ML model and expose it through a clean API that can be used by other services or a frontend application.
+Diabetes Risk Predictor is a full-stack machine learning application for estimating diabetes risk from patient demographic, lifestyle, medical history, biometric, and laboratory data.
 
-The system is split into two backend services:
+The goal of this project is to make a prediction model usable inside a real application instead of leaving it isolated in a notebook. It combines a frontend, an API layer, and a separate inference service into one working system.
 
-- **FastAPI (Python)** – hosts the trained machine learning model and performs predictions  
-- **Spring Boot (Java)** – acts as the main API layer and communicates with the model service  
+## Overview
 
-The backend API receives patient health data, sends it to the model service, and returns a prediction result.
+The application is split into three parts:
 
-This setup mirrors how many production ML systems are deployed — the model runs in its own service and the main backend interacts with it over HTTP.
+- **Angular frontend** for collecting patient information and displaying results
+- **Spring Boot API** for request handling and orchestration
+- **FastAPI model service** for machine learning inference
 
----
+A user submits patient data through the frontend, the request is sent to the Spring Boot backend, the backend forwards it to the FastAPI model service, and the prediction result is returned to the UI.
+
+## Why this project exists
+
+This project was built to explore what it looks like to move from a trained model to a usable application.
+
+Instead of focusing only on model training, it focuses on the system around the model:
+- a user-facing interface
+- a backend API boundary
+- a dedicated inference service
+- communication between Java and Python services
 
 ## Architecture
 
-```
-Frontend (Angular – planned)
-        ↓
+
+Angular Frontend
+↓
 Spring Boot REST API
-        ↓
+↓
 FastAPI Model Service
-        ↓
-Random Forest ML Model
-```
+↓
+Machine Learning Model
 
-Spring Boot handles API requests and forwards prediction requests to the Python service.  
-FastAPI loads the trained model and returns prediction results.
 
----
+## How it works
 
-## Current Status
+1. A user enters patient information in the Angular frontend
+2. The frontend sends the request to the Spring Boot API
+3. Spring Boot processes the request and communicates with the FastAPI model service
+4. The model service performs inference and returns the result
+5. The backend sends the final response back to the frontend
+6. The frontend displays the predicted risk and probability
 
-✔ Machine learning model trained and serialized (`.joblib`)  
-✔ FastAPI model service implemented  
-✔ Spring Boot backend API implemented  
-✔ Spring Boot successfully calling the FastAPI prediction endpoint  
-✔ REST endpoints tested locally  
+## Features
 
-Planned next steps:
+- End-to-end diabetes risk prediction flow
+- Structured patient input form in Angular
+- Spring Boot REST API for backend orchestration
+- FastAPI model service for inference
+- Separation between frontend, backend, and model logic
+- Local multi-service development setup
+- Health check endpoint for backend verification
 
-- Angular frontend for user input and prediction display  
-- Docker containers for each service  
-- Docker Compose for local deployment  
+## Tech Stack
 
----
+### Frontend
+- Angular
+- TypeScript
+- HTML/CSS
+- Reactive Forms
+
+### Backend
+- Spring Boot
+- Java
+- REST APIs
+
+### Model Service
+- FastAPI
+- Python
+- scikit-learn
+- joblib
 
 ## Project Structure
 
-```
-diabetes-predictor-backend
-│
-├── model-service-python
-│   ├── app
-│   │   ├── main.py
-│   │   ├── inference.py
-│   │   ├── model_loader.py
-│   │   └── schema.py
-│   │
-│   └── artifacts
-│       └── diabetes_rf_model.joblib
-│
-├── backend-springboot
-│   └── demo
-│       └── src/main/java/com/example/demo
-│           ├── api
-│           ├── dto
-│           └── service
-│
-├── frontend-angular (planned)
-└── infra (planned)
-```
 
----
+diabetes-predictor-backend/
+├── frontend-angular/
+├── backend-springboot/
+│ └── demo/
+├── model-service-python/
+├── README.md
+└── .gitignore
+
 
 ## API Endpoints
 
-### Spring Boot Backend
+### Spring Boot API
 
-Health check
-
-```
+**Health check**
+```http
 GET /api/v1/health
-```
 
-Prediction endpoint
+Prediction
 
-```
 POST /api/v1/predict
-```
-
----
-
-## Example Request
-
-```
-POST /api/v1/predict
-```
-
-```json
+Example Request
 {
   "age": 45,
   "gender": "Male",
@@ -107,56 +106,60 @@ POST /api/v1/predict
   "income_level": "Medium",
   "employment_status": "Employed",
   "smoking_status": "Never",
+  "alcohol_consumption_per_week": 2,
+  "physical_activity_minutes_per_week": 180,
+  "diet_score": 7,
+  "sleep_hours_per_day": 7,
+  "screen_time_hours_per_day": 6,
+  "family_history_diabetes": 0,
+  "hypertension_history": 0,
+  "cardiovascular_history": 0,
   "bmi": 28,
+  "waist_to_hip_ratio": 0.9,
+  "systolic_bp": 120,
+  "diastolic_bp": 80,
+  "heart_rate": 72,
+  "cholesterol_total": 190,
+  "hdl_cholesterol": 52,
+  "ldl_cholesterol": 110,
+  "triglycerides": 140,
   "glucose_fasting": 95,
+  "glucose_postprandial": 130,
+  "insulin_level": 12,
   "hba1c": 5.5
 }
-```
-
-Example response:
-
-```json
+Example Response
 {
   "probability": 0.23,
   "prediction": 0,
   "label": "No diabetes"
 }
-```
-
----
-
-## Running Locally
-
-Start the model service:
-
-```
+Running Locally
+1. Start the FastAPI model service
 cd model-service-python
 python -m uvicorn app.main:app --reload
-```
 
-The FastAPI service will run on:
+Runs on:
 
-```
 http://localhost:8000
-```
-
-Start the Spring Boot backend:
-
-```
+2. Start the Spring Boot backend
 cd backend-springboot/demo
 ./mvnw spring-boot:run
-```
 
-The backend API will run on:
+Runs on:
 
-```
 http://localhost:8080
-```
+3. Start the Angular frontend
+cd frontend-angular
+ng serve
 
----
+Runs on:
 
-## Why I Built This
-
-The goal of this project was to practice integrating machine learning models into a real backend system rather than keeping them in notebooks or standalone scripts.
-
-Instead of embedding the model directly inside the main backend, the model runs as its own service. This approach keeps the architecture flexible and mirrors how ML systems are often deployed in production environments.
+http://localhost:4200
+Current Status
+Angular frontend implemented
+Spring Boot backend implemented
+FastAPI model service implemented
+End-to-end prediction flow working locally
+Frontend connected to the backend prediction endpoint
+Ready for deployment and further polish
