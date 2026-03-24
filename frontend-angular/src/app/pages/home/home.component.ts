@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
     this.predictionForm = this.fb.group({
       // Demographics
       age: [52],
-      gender: ['male'],
+      gender: ['Male'],
       ethnicity: [''],
       education_level: [''],
       income_level: [''],
@@ -123,9 +123,9 @@ export class HomeComponent implements OnInit {
   loadSampleData(): void {
     this.predictionForm.patchValue({
       age: 52,
-      gender: 'male',
-      ethnicity: 'Caucasian',
-      smoking_status: 'former',
+      gender: 'Male',
+      ethnicity: 'White',
+      smoking_status: 'Former',
       alcohol_consumption_per_week: 2,
       physical_activity_minutes_per_week: 90,
       diet_score: 4,

@@ -137,7 +137,7 @@ Example Response
 Running Locally
 1. Start the FastAPI model service
 cd model-service-python
-python -m uvicorn app.main:app --reload
+CORS_ALLOWED_ORIGINS=http://localhost:8080 uvicorn app.main:app --reload
 
 Runs on:
 
@@ -156,10 +156,11 @@ ng serve
 Runs on:
 
 http://localhost:4200
-Current Status
-Angular frontend implemented
-Spring Boot backend implemented
-FastAPI model service implemented
-End-to-end prediction flow working locally
-Frontend connected to the backend prediction endpoint
-Ready for deployment and further polish
+Configuration
+Environment Variables
+FastAPI Model Service: Set CORS_ALLOWED_ORIGINS to comma-separated list of allowed origins (default: http://localhost:8080)
+Spring Boot Backend: Configure in application.properties:
+model.service.url: URL of the FastAPI service (default: http://localhost:8000/predict)
+cors.allowed-origins: Allowed CORS origins (default: http://localhost:4200)
+Angular Frontend: Configure in src/environments/environment.ts:
+apiUrl: Backend API URL (default: http://localhost:8080/api/v1)

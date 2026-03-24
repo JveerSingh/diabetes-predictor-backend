@@ -1,5 +1,6 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
+import os
 
 from .schema import Patient, PredictResponse
 from .model_loader import load_bundle
@@ -10,9 +11,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
+allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:8080").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # for now, allow any origin
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
